@@ -43,10 +43,11 @@ services:
   # node
   node:
     container_name: node-container
-    image: node:20
+    image: node:23
     working_dir: /var/www
     volumes:
       - ./:/var/www
+    command: [ "sh", "-c", "while :; do sleep 1; done" ]
     networks:
       - app-network
 
