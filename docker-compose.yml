@@ -26,12 +26,12 @@ services:
     networks:
       - app-network
 
-  # mysql
+  # mysqla
   mysql:
     container_name: mysql-container
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: php_mvc
+      MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./config/mysql:/var/lib/mysql
