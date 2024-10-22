@@ -1,7 +1,7 @@
 services:
   # image project
   app:
-    container_name: app-mvc
+    container_name: app-container
     build:
       context: ./config/php
       dockerfile: Dockerfile
