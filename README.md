@@ -1,4 +1,4 @@
-# SiteMVC
+# Ambiente de Desenvolvimento com Docker
 
 Este repositório contém uma configuração de Docker para um ambiente de desenvolvimento que suporta PHP 8.3, NGINX, MySQL 8.0 e Node.js 23.0.0. Este projeto é ideal para desenvolvimento com Laravel, PHP puro ou WordPress.
 
