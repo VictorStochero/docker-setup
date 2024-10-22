@@ -5,7 +5,15 @@ Este repositório contém uma configuração de Docker para um ambiente de desen
 ## Estrutura do Projeto
 
 A estrutura do projeto é a seguinte:
+A pasta app é onde você deve colocar seus arquivos PHP. <br>
+MySQL é onde os dados do banco de dados são armazenados. <br>
+A pasta config contém os arquivos de configuração do NGINX e PHP.<br>
+O arquivo .env contém as variáveis de ambiente para o Docker Compose.<br>
+O arquivo docker-compose.yml contém a configuração do Docker Compose.<br>
+O arquivo .gitignore contém os arquivos que não devem ser versionados. <br>
 
+
+````
 /docker_setup 
 ├── app 
 ├── mysql 
@@ -15,10 +23,11 @@ A estrutura do projeto é a seguinte:
 │ │ └── Dockerfile 
 │ └── php 
 │   ├── local.ini 
-│   └── Dockerfile 
-├── .env 
-├── .gitignore 
+│   └── Dockerfile
+├── .env <br>
+├── .gitignore <br>
 └── docker-compose.yml
+````
 
 
 ## Pré-requisitos
@@ -54,10 +63,10 @@ Para rodar um projeto Laravel:
 Crie um novo projeto Laravel:
 
 ````bash
-$ docker exec app bash
-$ laravel new app -f
+$ docker exec app bash #acessa o terminal do container app
+$ laravel new app -f #utilize o -f para forçar a instalação pois a pasta app já existe
 ````
-Configure o banco de dados no arquivo app/.env como abaixo:
+Configure o banco de dados no arquivo app/.env como abaixo, caso tenha alterado os dados no arquivo .env do projeto, coloque os dados corretos:
 ````.env
 DB_CONNECTION=mysql
 DB_HOST=mysql
