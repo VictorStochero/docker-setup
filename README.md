@@ -102,15 +102,6 @@ Defina as permissões necessárias (dentro do container do app)
 $ chown -R www-data:www-data /var/www/app/storage /var/www/app/bootstrap/cache
 $ chmod -R 775 /var/www/app/storage /var/www/app/bootstrap/cache
 ````
-Saia do container do app e entre no container do node:
-````bash
-$ exit
-$ docker-compose exec node bash
-````
-Execute o servidor Laravel:
-````bash
-$ npm install && npm run dev
-````
 O Laravel estará disponível em http://localhost.
 
 ## Contribuições
