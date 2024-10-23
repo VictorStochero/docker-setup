@@ -59,6 +59,7 @@ $ docker-compose exec app bash #acessa o terminal do container app
 $ cd app/public #Acesse a pasta public onde o WordPress será instalado
 $ wp core download --allow-root #Use o WP-CLI para baixar a versão mais recente do WordPress
 ````
+Se o Docker não exibir as pastas na IDE, reinicie os containers. <br>
 Renomeie o arquivo `app/public/wp-config.php` para Configure o banco de dados no arquivo app/wp-config.php como abaixo, caso tenha alterado os dados no arquivo .env do projeto, coloque os dados corretos:
 ````.php
 // ** Database settings - You can get this info from your web host ** //
