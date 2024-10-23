@@ -4,6 +4,7 @@ WORKDIR /var/www
 
 RUN rm -rf /var/www/html
 
+# Instala as dependências necessárias
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -20,18 +21,28 @@ RUN apt-get update && apt-get install -y \
     apt-utils \
     libonig-dev
 
+# Instala o Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Instala o Laravel Installer globalmente
 RUN composer global require laravel/installer
-
-# Add Composer's global bin directory to the PATH
 ENV PATH="/root/.composer/vendor/bin:${PATH}"
 
-RUN docker-php-ext-install zip pdo_mysql mbstring exif
+# Instala as extensões do PHP necessárias
+RUN docker-php-ext-install zip pdo_mysql mbstring exif mysqli
 
+# Configura e instala a extensão GD
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 RUN docker-php-ext-install gd
 
+# Instala o WP-CLI
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
+
+
+# Expõe a porta 9000
 EXPOSE 9000
 
+# Comando padrão para iniciar o PHP-FPM
 CMD ["php-fpm"]

@@ -4,13 +4,12 @@ Este repositório contém uma configuração de Docker para um ambiente de desen
 
 ## Estrutura do Projeto
 
-A estrutura do projeto é a seguinte:
-A pasta app é onde você deve colocar seus arquivos PHP. <br>
-MySQL é onde os dados do banco de dados são armazenados. <br>
-A pasta config contém os arquivos de configuração do NGINX e PHP.<br>
-O arquivo .env contém as variáveis de ambiente para o Docker Compose.<br>
-O arquivo docker-compose.yml contém a configuração do Docker Compose.<br>
-O arquivo .gitignore contém os arquivos que não devem ser versionados. <br>
+- A pasta `app` é onde você deve colocar seus arquivos PHP.
+- A pasta `mysql` é onde os dados do banco de dados são armazenados.
+- A pasta `config` contém os arquivos de configuração do NGINX e PHP.
+- O arquivo `.env` contém as variáveis de ambiente para o Docker Compose.
+- O arquivo `docker-compose.yml` contém a configuração do Docker Compose.
+- O arquivo `.gitignore` contém os arquivos que não devem ser versionados.
 
 
 ````
@@ -41,29 +40,46 @@ O arquivo .gitignore contém os arquivos que não devem ser versionados. <br>
 Clone este repositório em sua máquina local:
 
 ````bash
-git clone https://github.com/victorstochero/docker-setup.git
-cd docker-setup
+$ git clone https://github.com/victorstochero/docker-setup.git
+$ cd docker-setup
 ````
 2. Configuração do Docker
 Use o docker-compose para configurar e iniciar os serviços. Execute o seguinte comando na raiz do projeto:
 ````bash
-docker-compose up -d
+$ docker-compose up -d --build
 ````
 
-## Uso
-### Rodando PHP Puro
+## Rodando PHP Puro
 Para rodar PHP puro, adicione seus arquivos PHP na pasta app.
 
-### Rodando WordPress
-Para rodar o WordPress, insira os arquivos do WordPress na pasta app.
-
-### Rodando Laravel
-Para rodar um projeto Laravel:
-
-Crie um novo projeto Laravel:
-
+## Rodando WordPress
+Para rodar um projeto WordPress:
 ````bash
-$ docker exec app bash #acessa o terminal do container app
+$ docker-compose exec app bash #acessa o terminal do container app
+$ cd app/public #Acesse a pasta public onde o WordPress será instalado
+$ wp core download --allow-root #Use o WP-CLI para baixar a versão mais recente do WordPress
+````
+Renomeie o arquivo `app/public/wp-config.php` para Configure o banco de dados no arquivo app/wp-config.php como abaixo, caso tenha alterado os dados no arquivo .env do projeto, coloque os dados corretos:
+````.php
+// ** Database settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'app_db' );
+
+/** Database username */
+define( 'DB_USER', 'user' );
+
+/** Database password */
+define( 'DB_PASSWORD', 'pass' );
+
+/** Database hostname */
+define( 'DB_HOST', 'mysql' );
+````
+O WordPress estará disponível em http://localhost.
+
+## Rodando Laravel
+Para rodar um projeto Laravel:
+````bash
+$ docker-compose exec app bash #acessa o terminal do container app
 $ laravel new app -f #utilize o -f para forçar a instalação pois a pasta app já existe
 ````
 Configure o banco de dados no arquivo app/.env como abaixo, caso tenha alterado os dados no arquivo .env do projeto, coloque os dados corretos:
@@ -77,13 +93,13 @@ DB_PASSWORD=pass
 ````
 Defina as permissões necessárias:
 ````bash
-chown -R www-data:www-data /var/www/app/storage /var/www/app/bootstrap/cache
-chmod -R 775 /var/www/app/storage /var/www/app/bootstrap/cache
+$ chown -R www-data:www-data /var/www/app/storage /var/www/app/bootstrap/cache
+$ chmod -R 775 /var/www/app/storage /var/www/app/bootstrap/cache
 ````
 
 Execute o servidor Laravel:
 ````bash
-php artisan serve --port=80
+$ php artisan serve --port=80
 ````
 O Laravel estará disponível em http://localhost.
 
