@@ -23,8 +23,8 @@ Este repositório contém uma configuração de Docker para um ambiente de desen
 │ └── php 
 │   ├── local.ini 
 │   └── Dockerfile
-├── .env <br>
-├── .gitignore <br>
+├── .env 
+├── .gitignore 
 └── docker-compose.yml
 ````
 
@@ -92,15 +92,24 @@ DB_DATABASE=app_db
 DB_USERNAME=user
 DB_PASSWORD=pass
 ````
-Defina as permissões necessárias:
+
+Se não estiver no container do app, acesse pelo comando abaixo:
+````bash
+$ docker-compose exec app bash #acessa o terminal do container app
+````
+Defina as permissões necessárias (dentro do container do app)
 ````bash
 $ chown -R www-data:www-data /var/www/app/storage /var/www/app/bootstrap/cache
 $ chmod -R 775 /var/www/app/storage /var/www/app/bootstrap/cache
 ````
-
+Saia do container do app e entre no container do node:
+````bash
+$ exit
+$ docker-compose exec node bash
+````
 Execute o servidor Laravel:
 ````bash
-$ php artisan serve --port=80
+$ npm install && npm run dev
 ````
 O Laravel estará disponível em http://localhost.
 
